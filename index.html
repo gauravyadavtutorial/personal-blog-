@@ -125,6 +125,22 @@
             text-decoration: none;
             cursor: pointer;
         }
+
+        .edit-button {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            background-color: #FF5722;
+            color: white;
+            border: none;
+            padding: 5px 15px;
+            cursor: pointer;
+            display: none; /* Initially hidden */
+        }
+
+        .edit-button:hover {
+            background-color: #D84315;
+        }
     </style>
 </head>
 <body>
@@ -164,6 +180,7 @@
     <div id="modal" class="modal">
         <span class="close" onclick="closeModal()">&times;</span>
         <img id="fullImage" class="modal-content" />
+        <button id="editButton" class="edit-button" onclick="editImage()">Edit Image</button>
     </div>
 
     <script>
@@ -223,6 +240,8 @@
             }
         };
 
+        let lastTap = 0;
+
         // Function to open the modal and show the full-size image
         function openModal(imageNumber) {
             const imageSrc = document.getElementById(`image${imageNumber}`).src;
@@ -230,6 +249,24 @@
             const fullImage = document.getElementById("fullImage");
             fullImage.src = imageSrc;
             modal.style.display = "flex";
+
+            // Detecting double tap for the edit option
+            const currentTime = new Date().getTime();
+            if (currentTime - lastTap < 500) {
+                showEditButton();
+            }
+            lastTap = currentTime;
+        }
+
+        // Function to show the edit button in the modal
+        function showEditButton() {
+            document.getElementById('editButton').style.display = 'block';
+        }
+
+        // Function to open the edit image option
+        function editImage() {
+            alert("Edit image functionality here!");
+            // Implement the edit functionality here (e.g., replace image)
         }
 
         // Function to close the modal
