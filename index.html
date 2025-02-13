@@ -75,22 +75,77 @@
             bottom: 10px;
             width: 100%;
         }
+
+        .input-bio {
+            margin-top: 20px;
+            width: 80%;
+            padding: 10px;
+            font-size: 1rem;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
     </style>
 </head>
 <body>
 
     <header>
         <!-- Placeholder Profile Image -->
-        <img src="https://github.com/gauravyadavtutorial/personal-blog-/blob/main/IMG_20250207_150217.jpg?raw=true" alt="Profile Picture" class="profile-pic">
+        <img src="https://github.com/gauravyadavtutorial/personal-blog-/blob/main/IMG_20250207_150217.jpg?raw=true" alt="Profile Picture" class="profile-pic" id="profile-pic">
+        
+        <!-- File input for changing profile picture -->
+        <input type="file" id="upload-img" class="button" accept="image/*">
+        
         <h1>Welcome to the Fresh Yellow Page!</h1>
     </header>
     
     <p>This page is designed to have a fresh, vibrant yellow background with contrasting text colors to make it pop. Feel free to explore!</p>
-    <button class="button">Click Me!</button>
+
+    <!-- Editable Bio Section -->
+    <textarea id="bio-input" class="input-bio" placeholder="Enter your bio here..."></textarea>
+    
+    <button class="button" onclick="saveData()">Save</button>
     
     <div class="footer">
         <p>&copy; 2025 Fresh Yellow Page</p>
     </div>
+
+    <script>
+        // Load saved bio and profile picture from localStorage when the page loads
+        window.onload = function() {
+            const savedBio = localStorage.getItem('bio');
+            const savedImage = localStorage.getItem('profileImage');
+            const profilePic = document.getElementById('profile-pic');
+            
+            if (savedBio) {
+                document.getElementById('bio-input').value = savedBio;
+            }
+            
+            if (savedImage) {
+                profilePic.src = savedImage;
+            }
+        };
+
+        // Save data to localStorage when the "Save" button is clicked
+        function saveData() {
+            const bio = document.getElementById('bio-input').value;
+            const profilePic = document.getElementById('profile-pic').src;
+
+            // Save bio and profile image URL to localStorage
+            localStorage.setItem('bio', bio);
+            localStorage.setItem('profileImage', profilePic);
+            
+            alert('Data saved successfully!');
+        }
+
+        // Change profile picture when a new image is selected
+        document.getElementById('upload-img').addEventListener('change', function(event) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById('profile-pic').src = e.target.result;
+            };
+            reader.readAsDataURL(event.target.files[0]);
+        });
+    </script>
 
 </body>
 </html>
