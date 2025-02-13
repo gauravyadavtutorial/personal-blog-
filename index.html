@@ -17,11 +17,12 @@
             background-color: #FFEB3B; /* Fresh Yellow */
             color: #333; /* Dark text for readability */
             text-align: center;
-            height: 100vh;
+            height: auto;
             display: flex;
-            justify-content: center;
+            justify-content: flex-start;
             align-items: center;
             flex-direction: column;
+            min-height: 100vh;
         }
 
         header {
@@ -153,7 +154,7 @@
     </header>
 
     <!-- Image Upload Grid -->
-    <div class="image-grid">
+    <div class="image-grid" id="image-grid-1">
         <!-- Upload space for 3 images -->
         <div class="upload-input" onclick="document.getElementById('upload-img1').click();">
             <input type="file" id="upload-img1" accept="image/*" onchange="previewImage(1)">
@@ -168,6 +169,9 @@
             <img id="image3" src="" alt="Image 3" onclick="openModal(3)">
         </div>
     </div>
+
+    <!-- Button to add a new grid -->
+    <button class="button" onclick="addNewImageGrid()">Add New Image Grid</button>
 
     <!-- Save Button -->
     <button class="button" onclick="saveData()">Save</button>
@@ -273,6 +277,29 @@
         function closeModal() {
             const modal = document.getElementById("modal");
             modal.style.display = "none";
+        }
+
+        // Add new image grid below the current one
+        function addNewImageGrid() {
+            // Create a new grid
+            const newGrid = document.createElement('div');
+            newGrid.classList.add('image-grid');
+            newGrid.id = `image-grid-${document.querySelectorAll('.image-grid').length + 1}`;
+            newGrid.innerHTML = `
+                <div class="upload-input" onclick="document.getElementById('upload-img4').click();">
+                    <input type="file" id="upload-img4" accept="image/*" onchange="previewImage(4)">
+                    <img id="image4" src="" alt="Image 4" onclick="openModal(4)">
+                </div>
+                <div class="upload-input" onclick="document.getElementById('upload-img5').click();">
+                    <input type="file" id="upload-img5" accept="image/*" onchange="previewImage(5)">
+                    <img id="image5" src="" alt="Image 5" onclick="openModal(5)">
+                </div>
+                <div class="upload-input" onclick="document.getElementById('upload-img6').click();">
+                    <input type="file" id="upload-img6" accept="image/*" onchange="previewImage(6)">
+                    <img id="image6" src="" alt="Image 6" onclick="openModal(6)">
+                </div>
+            `;
+            document.body.appendChild(newGrid);
         }
     </script>
 
