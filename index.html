@@ -95,6 +95,36 @@
         .upload-input input[type="file"] {
             display: none; /* Hide the file input */
         }
+
+        /* Full-screen modal styling */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            max-width: 90%;
+            max-height: 90%;
+        }
+
+        .close {
+            color: white;
+            font-size: 30px;
+            font-weight: bold;
+            position: absolute;
+            top: 10px;
+            right: 25px;
+            text-decoration: none;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -111,15 +141,15 @@
         <!-- Upload space for 3 images -->
         <div class="upload-input" onclick="document.getElementById('upload-img1').click();">
             <input type="file" id="upload-img1" accept="image/*" onchange="previewImage(1)">
-            <img id="image1" src="" alt="Image 1" />
+            <img id="image1" src="" alt="Image 1" onclick="openModal(1)">
         </div>
         <div class="upload-input" onclick="document.getElementById('upload-img2').click();">
             <input type="file" id="upload-img2" accept="image/*" onchange="previewImage(2)">
-            <img id="image2" src="" alt="Image 2" />
+            <img id="image2" src="" alt="Image 2" onclick="openModal(2)">
         </div>
         <div class="upload-input" onclick="document.getElementById('upload-img3').click();">
             <input type="file" id="upload-img3" accept="image/*" onchange="previewImage(3)">
-            <img id="image3" src="" alt="Image 3" />
+            <img id="image3" src="" alt="Image 3" onclick="openModal(3)">
         </div>
     </div>
 
@@ -128,6 +158,12 @@
     
     <div class="footer">
         <p>&copy; 2025 Fresh Yellow Page</p>
+    </div>
+
+    <!-- Full Image Modal -->
+    <div id="modal" class="modal">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <img id="fullImage" class="modal-content" />
     </div>
 
     <script>
@@ -186,6 +222,21 @@
                 document.getElementById('image3').src = savedImage3;
             }
         };
+
+        // Function to open the modal and show the full-size image
+        function openModal(imageNumber) {
+            const imageSrc = document.getElementById(`image${imageNumber}`).src;
+            const modal = document.getElementById("modal");
+            const fullImage = document.getElementById("fullImage");
+            fullImage.src = imageSrc;
+            modal.style.display = "flex";
+        }
+
+        // Function to close the modal
+        function closeModal() {
+            const modal = document.getElementById("modal");
+            modal.style.display = "none";
+        }
     </script>
 
 </body>
