@@ -40,19 +40,6 @@
             margin-bottom: 10px; /* Adds some space between the image and text */
         }
 
-        h1 {
-            font-size: 3rem;
-            color: #FF5722; /* A contrasting color for the header */
-            margin-bottom: 20px;
-        }
-
-        p {
-            font-size: 1.2rem;
-            color: #616161; /* Slightly lighter gray text for readability */
-            max-width: 600px;
-            margin-bottom: 20px;
-        }
-
         .button {
             background-color: #FF5722; /* Same contrasting color for the button */
             color: white;
@@ -75,15 +62,6 @@
             bottom: 10px;
             width: 100%;
         }
-
-        .input-bio {
-            margin-top: 20px;
-            width: 80%;
-            padding: 10px;
-            font-size: 1rem;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-        }
     </style>
 </head>
 <body>
@@ -95,14 +73,9 @@
         <!-- File input for changing profile picture -->
         <input type="file" id="upload-img" class="button" accept="image/*">
         
-        <h1>Welcome to the Fresh Yellow Page!</h1>
     </header>
-    
-    <p>This page is designed to have a fresh, vibrant yellow background with contrasting text colors to make it pop. Feel free to explore!</p>
 
-    <!-- Editable Bio Section -->
-    <textarea id="bio-input" class="input-bio" placeholder="Enter your bio here..."></textarea>
-    
+    <!-- Save Button -->
     <button class="button" onclick="saveData()">Save</button>
     
     <div class="footer">
@@ -110,31 +83,24 @@
     </div>
 
     <script>
-        // Load saved bio and profile picture from localStorage when the page loads
+        // Load saved profile picture from localStorage when the page loads
         window.onload = function() {
-            const savedBio = localStorage.getItem('bio');
             const savedImage = localStorage.getItem('profileImage');
             const profilePic = document.getElementById('profile-pic');
-            
-            if (savedBio) {
-                document.getElementById('bio-input').value = savedBio;
-            }
             
             if (savedImage) {
                 profilePic.src = savedImage;
             }
         };
 
-        // Save data to localStorage when the "Save" button is clicked
+        // Save profile picture to localStorage when the "Save" button is clicked
         function saveData() {
-            const bio = document.getElementById('bio-input').value;
             const profilePic = document.getElementById('profile-pic').src;
 
-            // Save bio and profile image URL to localStorage
-            localStorage.setItem('bio', bio);
+            // Save profile image URL to localStorage
             localStorage.setItem('profileImage', profilePic);
             
-            alert('Data saved successfully!');
+            alert('Profile picture saved successfully!');
         }
 
         // Change profile picture when a new image is selected
