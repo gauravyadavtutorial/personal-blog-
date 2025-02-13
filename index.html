@@ -55,6 +55,7 @@
             background-color: #D84315; /* Darken the button color on hover */
         }
 
+        /* Footer styling */
         .footer {
             font-size: 0.8rem;
             color: #757575; /* A lighter gray for footer text */
@@ -62,18 +63,73 @@
             bottom: 10px;
             width: 100%;
         }
+
+        /* Grid container for the images */
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* Three equal-width columns */
+            gap: 10px;
+            margin-top: 20px;
+            width: 80%;
+        }
+
+        .image-grid img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .upload-input {
+            width: 100%;
+            height: 150px;
+            background-color: #eee;
+            border-radius: 8px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .upload-input input[type="file"] {
+            display: none; /* Hide the file input */
+        }
+
+        .upload-text {
+            font-size: 1.2rem;
+            color: #616161;
+        }
     </style>
 </head>
 <body>
 
     <header>
-        <!-- Placeholder Profile Image -->
+        <!-- Profile Picture -->
         <img src="https://github.com/gauravyadavtutorial/personal-blog-/blob/main/IMG_20250207_150217.jpg?raw=true" alt="Profile Picture" class="profile-pic" id="profile-pic">
-        
         <!-- File input for changing profile picture -->
         <input type="file" id="upload-img" class="button" accept="image/*">
-        
     </header>
+
+    <!-- Image Upload Grid -->
+    <div class="image-grid">
+        <!-- Upload space for 3 images -->
+        <div class="upload-input" onclick="document.getElementById('upload-img1').click();">
+            <input type="file" id="upload-img1" accept="image/*" onchange="previewImage(1)">
+            <img id="image1" src="" alt="Image 1" />
+            <span class="upload-text">Upload Image 1</span>
+        </div>
+        <div class="upload-input" onclick="document.getElementById('upload-img2').click();">
+            <input type="file" id="upload-img2" accept="image/*" onchange="previewImage(2)">
+            <img id="image2" src="" alt="Image 2" />
+            <span class="upload-text">Upload Image 2</span>
+        </div>
+        <div class="upload-input" onclick="document.getElementById('upload-img3').click();">
+            <input type="file" id="upload-img3" accept="image/*" onchange="previewImage(3)">
+            <img id="image3" src="" alt="Image 3" />
+            <span class="upload-text">Upload Image 3</span>
+        </div>
+    </div>
 
     <!-- Save Button -->
     <button class="button" onclick="saveData()">Save</button>
@@ -83,27 +139,7 @@
     </div>
 
     <script>
-        // Load saved profile picture from localStorage when the page loads
-        window.onload = function() {
-            const savedImage = localStorage.getItem('profileImage');
-            const profilePic = document.getElementById('profile-pic');
-            
-            if (savedImage) {
-                profilePic.src = savedImage;
-            }
-        };
-
-        // Save profile picture to localStorage when the "Save" button is clicked
-        function saveData() {
-            const profilePic = document.getElementById('profile-pic').src;
-
-            // Save profile image URL to localStorage
-            localStorage.setItem('profileImage', profilePic);
-            
-            alert('Profile picture saved successfully!');
-        }
-
-        // Change profile picture when a new image is selected
+        // Profile picture upload functionality
         document.getElementById('upload-img').addEventListener('change', function(event) {
             const reader = new FileReader();
             reader.onload = function(e) {
@@ -111,6 +147,53 @@
             };
             reader.readAsDataURL(event.target.files[0]);
         });
+
+        // Function to preview uploaded images in the grid
+        function previewImage(imageNumber) {
+            const input = document.getElementById(`upload-img${imageNumber}`);
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById(`image${imageNumber}`).src = e.target.result;
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+
+        // Save all images data (profile and grid images)
+        function saveData() {
+            const profilePic = document.getElementById('profile-pic').src;
+            const image1 = document.getElementById('image1').src;
+            const image2 = document.getElementById('image2').src;
+            const image3 = document.getElementById('image3').src;
+
+            // Save the images to localStorage (or backend if needed)
+            localStorage.setItem('profileImage', profilePic);
+            localStorage.setItem('image1', image1);
+            localStorage.setItem('image2', image2);
+            localStorage.setItem('image3', image3);
+
+            alert('Images saved successfully!');
+        }
+
+        // Load saved images on page load
+        window.onload = function() {
+            const savedProfilePic = localStorage.getItem('profileImage');
+            const savedImage1 = localStorage.getItem('image1');
+            const savedImage2 = localStorage.getItem('image2');
+            const savedImage3 = localStorage.getItem('image3');
+
+            if (savedProfilePic) {
+                document.getElementById('profile-pic').src = savedProfilePic;
+            }
+            if (savedImage1) {
+                document.getElementById('image1').src = savedImage1;
+            }
+            if (savedImage2) {
+                document.getElementById('image2').src = savedImage2;
+            }
+            if (savedImage3) {
+                document.getElementById('image3').src = savedImage3;
+            }
+        };
     </script>
 
 </body>
