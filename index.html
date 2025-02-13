@@ -95,11 +95,6 @@
         .upload-input input[type="file"] {
             display: none; /* Hide the file input */
         }
-
-        .upload-text {
-            font-size: 1.2rem;
-            color: #616161;
-        }
     </style>
 </head>
 <body>
@@ -117,17 +112,14 @@
         <div class="upload-input" onclick="document.getElementById('upload-img1').click();">
             <input type="file" id="upload-img1" accept="image/*" onchange="previewImage(1)">
             <img id="image1" src="" alt="Image 1" />
-            <span class="upload-text">Upload Image 1</span>
         </div>
         <div class="upload-input" onclick="document.getElementById('upload-img2').click();">
             <input type="file" id="upload-img2" accept="image/*" onchange="previewImage(2)">
             <img id="image2" src="" alt="Image 2" />
-            <span class="upload-text">Upload Image 2</span>
         </div>
         <div class="upload-input" onclick="document.getElementById('upload-img3').click();">
             <input type="file" id="upload-img3" accept="image/*" onchange="previewImage(3)">
             <img id="image3" src="" alt="Image 3" />
-            <span class="upload-text">Upload Image 3</span>
         </div>
     </div>
 
